@@ -1,21 +1,17 @@
 {
-  "name": "bun-location-api",
-  "version": "0.0.1",
-  "private": true,
+  "name": "aa",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "seed": "bun run scripts/seed-nepal.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.0",
-    "hono": "^4.6.0"
+    "hono": "^4.11.8"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241127.0",
-    "bun-types": "latest",
-    "typescript": "^5.7.2",
-    "wrangler": "^3.94.0"
+    "wrangler": "^4.4.0"
   }
 }

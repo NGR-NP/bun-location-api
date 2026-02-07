@@ -1,4 +1,3 @@
-/// <reference types="@cloudflare/workers-types" />
 import { Hono } from "hono";
 import type { Env } from "./env";
 import countries from "./routes/countries";
@@ -23,8 +22,4 @@ app.route("/v1/countries/:countryId/divisions", divisions);
 app.route("/v1/search", search);
 app.route("/v1/np", npRoute)
 
-// Cloudflare Worker: default export must be { fetch }
-export default {
-    fetch: (request: Request, env: Env, ctx: ExecutionContext) =>
-        app.fetch(request, env, ctx),
-};
+export default app

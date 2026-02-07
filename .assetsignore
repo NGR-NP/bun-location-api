@@ -1,0 +1,4 @@
+superbase/
+scripts/
+node_modules/
+*.md
