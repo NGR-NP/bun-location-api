@@ -8,13 +8,12 @@ import { cors } from "hono/cors";
 
 const app = new Hono<{ Bindings: Env }>();
 app.use(
-    '/v1/*',
-    cors({
-        origin: (_origin, c) => {
-            return c.env.allow_origin
-        }
-    })
-)
+  "/*",
+  cors({
+    origin: "*",
+  })
+);
+
 app.get("/v1/health", (c) => c.json({ ok: true }));
 
 app.route("/v1/countries", countries);
