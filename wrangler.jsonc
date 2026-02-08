@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "bun-location-api",
   "main": "src/index.ts",
+  "compatibility_date": "2026-02-07",
   "observability": {
     "enabled": false,
     "head_sampling_rate": 1,
