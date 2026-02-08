@@ -14,7 +14,7 @@ app.use(
   })
 );
 
-app.get("/v1/health", (c) => c.json({ ok: true }));
+app.get("/v1/health", (c) => c.json({ ok: true,c: c.env })); //testing env 
 
 app.route("/v1/countries", countries);
 app.route("/v1/countries/:countryId/divisions", divisions);
