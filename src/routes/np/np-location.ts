@@ -3,6 +3,7 @@ import { getSupabase } from "../../db/client";
 import { type Env } from "@/env";
 
 const npRoute = new Hono<{ Bindings: Env }>();
+const LIMIT = 8;
 
 const structure = {
     province: "province",
@@ -120,6 +121,7 @@ const fun = async ({ env, fieldPrefix, pid, level, namePrefix }: { env: Env, fie
         .eq("level", level)
         .eq("country_id", cid)
         .eq("is_deleted", false)
+        .limit(LIMIT)
 
     if (namePrefix !== undefined && namePrefix !== "" && namePrefix.length <= 10) {
         query = query.like("name", `${namePrefix}%`);
@@ -163,7 +165,6 @@ npRoute.get(`/${structure.city}/:parentId`, async (c) => {
     return c.json(data);
 });
 
-const LIMIT = 20;
 
 npRoute.get("/search/:type", async (c) => {
     const type = c.req.param("type");
