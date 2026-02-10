@@ -89,6 +89,10 @@ npRoute.get(`/location/:id`, async (c) => {
     "code",
     "level",
     "name",
+    "parent_id",
+    "path",
+    "type",
+    "rest",
   ]);
   const supabase = getSupabase(c.env);
   let query = supabase
@@ -102,6 +106,36 @@ npRoute.get(`/location/:id`, async (c) => {
     const level = levelStru[type as keyof typeof levelStru];
     query = query.eq("level", level);
   }
+  const { data, error } = await query.single();
+
+  if (error) return c.json({ error: error.message }, 500);
+  return c.json(data);
+});
+
+npRoute.get(`/verify-user-summit/:id`, async (c) => {
+  const rid = c.req.param("id");
+
+  const id = Number(rid);
+  if (Number.isNaN(id)) {
+    return c.json({ error: "Invalid id" }, 400);
+  }
+
+  const districtId = c.req.query("districtId");
+  const dId = Number(districtId);
+  if (Number.isNaN(dId)) {
+    return c.json({ error: "Invalid id" }, 400);
+  }
+  const level = levelStru["city"];
+  const supabase = getSupabase(c.env);
+  let query = supabase
+    .from("admin_divisions")
+    .select("*")
+    .eq("id", id)
+    .eq("parent_id", dId)
+    .eq("country_id", cid)
+    .eq("level", level)
+    .eq("is_deleted", false);
+
   const { data, error } = await query.single();
 
   if (error) return c.json({ error: error.message }, 500);
